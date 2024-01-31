@@ -232,7 +232,7 @@ jobs:
       - name: Start PostgreSQL ${{ matrix.pg_major }} (MacOS)
         if: startsWith(matrix.os, 'macos')
         run: |
-            brew install postgresql@{{ matrix.pg_major }}
+            brew install postgresql@${{ matrix.pg_major }}
 
             PGDATA=/usr/local/var/postgresql@${{ matrix.pg_major }}
 
