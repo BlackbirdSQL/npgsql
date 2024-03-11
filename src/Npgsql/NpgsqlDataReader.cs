@@ -1478,10 +1478,8 @@ public sealed class NpgsqlDataReader : DbDataReader, IDbColumnSchemaGenerator
         if (buffer != null && (length < 0 || length > buffer.Length - bufferOffset))
             throw new IndexOutOfRangeException($"length must be between 0 and {buffer.Length - bufferOffset}");
 
-        // Check whether we can do resumable reads.
+        // Check whether we have a GetChars implementation for this column type.
         var field = GetInfo(ordinal, typeof(GetChars), out var converter, out var bufferRequirement, out var asObject);
-        if (converter is not IResumableRead { Supported: true })
-            throw new NotSupportedException("The GetChars method is not supported for this column type");
 
         var columnLength = SeekToColumn(async: false, ordinal, field, resumableOp: true).GetAwaiter().GetResult();
         if (columnLength == -1)
