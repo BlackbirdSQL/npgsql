@@ -43,10 +43,12 @@ namespace Npgsql.VSIX
     [Guid(PackageGuidString)]
     // Start loading as soon as the VS shell is available.
     [ProvideUIContextRule(PackageUIContextRuleGuid,
-    name: "Npgsql UIContext Autoload",
-    expression: "(ShellInit | SolutionModal | DataSourceWindowVisible | DataSourceWindowSupported)",
-    termNames: new string[] { "ShellInit", "SolutionModal", "DataSourceWindowVisible", "DataSourceWindowSupported" },
-    termValues: new string[] { VSConstants.UICONTEXT.ShellInitialized_string, VSConstants.UICONTEXT.SolutionOpening_string, UIContextGuids80.DataSourceWindowAutoVisible, UIContextGuids80.DataSourceWindowSupported })]
+        name: "Npgsql UIContext Autoload",
+        expression: "(ShellInit | SolutionModal | DesignMode | DataSourceWindowVisible | DataSourceWindowSupported)",
+        termNames: new string[] { "ShellInit", "SolutionModal", "DesignMode", "DataSourceWindowVisible", "DataSourceWindowSupported" },
+        termValues: new string[] { VSConstants.UICONTEXT.ShellInitialized_string, VSConstants.UICONTEXT.SolutionOpening_string,
+            VSConstants.UICONTEXT.DesignMode_string, UIContextGuids80.DataSourceWindowAutoVisible, 
+            UIContextGuids80.DataSourceWindowSupported })]
     [ProvideAutoLoad(PackageUIContextRuleGuid, PackageAutoLoadFlags.BackgroundLoad)]
     public sealed class NpgsqlVSPackage : AsyncPackage
     {
